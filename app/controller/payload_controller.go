@@ -1,9 +1,10 @@
 package controller
 
 import (
+	"net/http"
 	"webhook/app/models"
 	"webhook/pkg/response"
-	"webhook/pkg/worker"
+	"webhook/pkg/utils"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -37,13 +38,8 @@ func (h *Handler) UplinkHandler(c *fiber.Ctx) error {
 		h.logger.Warn().Str("Error", err.Error()).Msg("Failed to validate and decode payload")
 		return response.CodeMessage(c, fiber.StatusBadRequest, err.Error())
 	}
-
-	err = h.taskDistributor.DistributeSendPayloadDataTask(c.Context(), &worker.SendPayloadData{&data})
-	if err != nil {
-		h.logger.Warn().Str("Error", err.Error()).Msg("Task Distribution failed")
-		return response.CodeMessage(c, fiber.StatusInternalServerError, err.Error())
-	}
-
+	webhookURL := "https://webhook.site/#!/18fe2e34-338c-4bda-881e-acfe7520d482/72ea7726-134f-4d95-b847-2b314b1c7bf1/1"
+	go utils.HttpRequest(data, http.MethodPost, webhookURL, "")
 	return response.Data(c, "data payload sent successfully")
 
 }
