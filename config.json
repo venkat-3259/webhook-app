@@ -1,0 +1,13 @@
+{
+    "server": {
+        "host": "127.0.0.1",
+        "port": "9191",
+        "serverReadTimeout": 60
+    },
+    "attributesMaxLimit": "10",
+    "traitsMaxLimit": "10",
+    "redis": {
+        "host": "127.0.0.1",
+        "port": "6379"
+    }
+}
