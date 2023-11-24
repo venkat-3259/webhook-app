@@ -1,8 +1,3 @@
-pre-requisites:
-
-1. install redis on your local server.
-
-
 To start the service
 
 1.  Run webook binary file
@@ -10,7 +5,7 @@ To start the service
 Note:
     Maximum Number of attributes and traits can be configured.
     Minimum number of attributes and traits is 1.
-    To configure open config.json file and change server port, host, redis config.
+    To configure open config.json file and change server port, host config.
     
     To use it your local browser, after starting the service just visit the url 
         http://localhost:9191/swagger/index.html
