@@ -1,0 +1,145 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is an auto-generated API Docs.",
+        "title": "webhook API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "email": "venkateshwarachinnasamy@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/api/v1",
+    "paths": {
+        "/uplink": {
+            "post": {
+                "description": "send data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "payload"
+                ],
+                "summary": "Payload",
+                "operationId": "payload",
+                "parameters": [
+                    {
+                        "description": "body parameter",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Data"
+                        }
+                    },
+                    "404": {
+                        "description": "bad request: validate your input params",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/Response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "Code is the status code by default, but also can be\na custom code",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "Data accepts any thing as the response data"
+                },
+                "message": {
+                    "description": "Message shows detail thing back to caller",
+                    "type": "string"
+                },
+                "request_id": {
+                    "description": "RequestID needs to be used with middleware",
+                    "type": "string"
+                }
+            }
+        },
+        "models.Data": {
+            "type": "object",
+            "properties": {
+                "app_id": {
+                    "type": "string"
+                },
+                "attributes": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/models.types"
+                    }
+                },
+                "browser_language": {
+                    "type": "string"
+                },
+                "event": {
+                    "type": "string"
+                },
+                "event_type": {
+                    "type": "string"
+                },
+                "message_id": {
+                    "type": "string"
+                },
+                "page_title": {
+                    "type": "string"
+                },
+                "page_url": {
+                    "type": "string"
+                },
+                "screen_size": {
+                    "type": "string"
+                },
+                "traits": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/models.types"
+                    }
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.types": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
