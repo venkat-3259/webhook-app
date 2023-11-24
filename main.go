@@ -1,17 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"webhook/app/controller"
 	_ "webhook/docs" // load API Docs files (Swagger
 	"webhook/pkg/apiserver"
 	"webhook/pkg/configs"
 	"webhook/pkg/routes"
-	"webhook/pkg/worker"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/hibiken/asynq"
 )
 
 // @title webhook API
@@ -35,18 +32,11 @@ func main() {
 	// Define a new Fiber app with config.
 	app := fiber.New(c)
 
-	redisOpt := asynq.RedisClientOpt{
-		Addr: fmt.Sprintf("%v:%v", config.Redis.Host, config.Redis.Port),
-	}
-
-	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
-
-	h := controller.NewHandler(config, taskDistributor)
+	h := controller.NewHandler(config)
 
 	routes.RegisterSwaggerRoute(app)
 	routes.RegisterRoutes(app, h)
 
-	go worker.InitTaskProcessor(redisOpt)
 	apiserver.StartFiberWithGracefulShutdown(app, config.Server)
 
 }
