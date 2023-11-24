@@ -5,7 +5,8 @@ pre-requisites:
 
 To start the service
 
-1.  Run webook binary file
+1. Download and unzip the file.
+2. Run webook binary file
 
 Note:
     Maximum Number of attributes and traits can be configured.
